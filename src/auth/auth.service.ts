@@ -36,19 +36,29 @@ export class AuthService {
   private async generateTokens(userId: string, email: string) {
     const payload = { sub: userId, email };
 
+    // 确保 expiresIn 是数字类型（秒）
+    const accessTokenExpiresIn = parseInt(
+      this.configService.get<string>('JWT_EXPIRES_IN') || '900',
+      10,
+    ); // 15分钟
+    const refreshTokenExpiresIn = parseInt(
+      this.configService.get<string>('JWT_REFRESH_EXPIRES_IN') || '604800',
+      10,
+    ); // 7天
+
     const accessToken = this.jwtService.sign(payload, {
       secret: this.configService.get<string>('JWT_SECRET') || 'your-secret-key',
-      expiresIn: this.configService.get<number>('JWT_EXPIRES_IN') || 900, // 15分钟
+      expiresIn: accessTokenExpiresIn,
     });
 
     const refreshToken = this.jwtService.sign(payload, {
       secret: this.configService.get<string>('JWT_REFRESH_SECRET') || 'your-refresh-secret-key',
-      expiresIn: this.configService.get<number>('JWT_REFRESH_EXPIRES_IN') || 604800, // 7天
+      expiresIn: refreshTokenExpiresIn,
     });
 
-    // 计算刷新令牌过期时间 (7天后)
+    // 计算刷新令牌过期时间（基于配置的秒数）
     const expiresAt = new Date();
-    expiresAt.setDate(expiresAt.getDate() + 7);
+    expiresAt.setSeconds(expiresAt.getSeconds() + refreshTokenExpiresIn);
 
     // 保存刷新令牌到数据库
     await this.prisma.refreshToken.create({
@@ -246,11 +256,15 @@ export class AuthService {
       }
 
       // 生成新的访问令牌
+      const accessTokenExpiresIn = parseInt(
+        this.configService.get<string>('JWT_EXPIRES_IN') || '900',
+        10,
+      );
       const accessToken = this.jwtService.sign(
         { sub: payload.sub, email: payload.email },
         {
           secret: this.configService.get<string>('JWT_SECRET') || 'your-secret-key',
-          expiresIn: this.configService.get<number>('JWT_EXPIRES_IN') || 900, // 15分钟
+          expiresIn: accessTokenExpiresIn,
         },
       );
 

@@ -26,6 +26,17 @@ async function bootstrap() {
     .setTitle('Prisma Minimal Repro API')
     .setDescription('Minimal reproduction of Prisma ORM setup')
     .setVersion('0.1')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Enter JWT token',
+        in: 'header',
+      },
+      'JWT-auth', // This name here is important for reference in the controllers!
+    )
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);

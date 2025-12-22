@@ -106,6 +106,9 @@ import { PrismaClient } from 'src/config/database';
 - 全局 ValidationPipe 用于 DTO 验证
 - 全局 ClassSerializerInterceptor
 - Swagger 文档位于 `/api`
+  - 已配置 JWT Bearer 认证（名称：`JWT-auth`）
+  - 需要认证的端点使用 `@ApiBearerAuth('JWT-auth')` 装饰器
+  - 点击 Swagger UI 右上角的 "Authorize" 按钮输入 JWT token
 
 ### 数据库服务模式
 
@@ -126,6 +129,11 @@ PrismaService 扩展 PrismaClient 并实现 OnModuleInit（src/config/database/p
 - `REDIS_HOST`、`REDIS_PORT`：Redis 连接（开发环境）
 - `REDIS_URL`：Redis 连接字符串（生产环境）
 - `PORT`：服务器端口（默认：3000）
+- `JWT_SECRET`、`JWT_REFRESH_SECRET`：JWT 密钥
+- `SMTP_*`：邮件服务配置
+  - 使用 Gmail 时必须使用 **App Password**（不能使用普通密码）
+  - 生成方式：Google Account → Security → 2-Step Verification → App passwords
+  - 参考：https://support.google.com/mail/?p=BadCredentials
 
 ## 关键约束
 
