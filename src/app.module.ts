@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
 import { DatabaseModule } from './config/database/database.module';
 import { RedisModule } from './config/redis/redis.module';
 import { RedisProvider } from './config/redis/redis.providers';
@@ -30,6 +31,7 @@ import { UserModule } from './user/user.module';
       useFactory: async (redisProvider: RedisProvider) =>
         redisProvider.getBullConfig(),
     }),
+    AuthModule,
     UserModule,
   ],
   controllers: [AppController],

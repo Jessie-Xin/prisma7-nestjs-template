@@ -1,7 +1,6 @@
 import {
   Controller,
   Get,
-  Post,
   Put,
   Delete,
   Body,
@@ -9,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { UserService } from './user.service';
-import { CreateUserDto, UpdateUserDto } from './user.dto';
+import { UpdateUserDto } from './user.dto';
 
 @ApiTags('users')
 @Controller('users')
@@ -28,11 +27,7 @@ export class UserController {
     return this.userService.findOne(id);
   }
 
-  @Post()
-  @ApiOperation({ summary: 'Create a new user' })
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
-  }
+  // 用户创建请使用 POST /auth/register
 
   @Put(':id')
   @ApiOperation({ summary: 'Update a user' })

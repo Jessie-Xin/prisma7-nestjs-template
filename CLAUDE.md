@@ -18,14 +18,14 @@
 docker-compose up -d
 
 # 安装依赖（通过 postinstall 自动运行 prisma generate）
-yarn install
+pnpm install
 
 # 开发服务器（监听模式）
-yarn dev
+pnpm run dev
 
 # 生产环境构建和启动
-yarn build
-yarn start:prod
+pnpm run build
+pnpm run start:prod
 ```
 
 ### Prisma 操作
@@ -52,16 +52,16 @@ npx prisma migrate reset
 ### 测试与代码检查
 ```bash
 # 类型检查
-yarn typecheck
+pnpm run typecheck
 
 # 运行测试
-yarn test
-yarn test:watch        # 监听模式
-yarn test:cov          # 带覆盖率
+pnpm run test
+pnpm run test:watch        # 监听模式
+pnpm run test:cov          # 带覆盖率
 
 # 代码检查和格式化
-yarn lint              # 自动修复
-yarn format            # Prettier
+pnpm run lint              # 自动修复
+pnpm run format            # Prettier
 ```
 
 ## 架构

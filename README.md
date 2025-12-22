@@ -62,7 +62,7 @@ npx prisma migrate dev --name init
 ### 4. 启动服务器
 
 ```bash
-yarn dev
+pnpm run dev
 ```
 
 API 将在 http://localhost:3000 上可用
@@ -86,10 +86,10 @@ npx prisma migrate deploy
 npx prisma studio
 
 # 运行测试
-yarn test
+pnpm run test
 
 # 类型检查
-yarn typecheck
+pnpm run typecheck
 ```
 
 ## 环境变量
