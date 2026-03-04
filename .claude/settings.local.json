@@ -16,7 +16,10 @@
       "Bash(docker-compose ps:*)",
       "Bash(pnpm dev)",
       "Bash(kill:*)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(find:*)",
+      "Bash(pnpm view:*)",
+      "mcp__prisma-local__migrate-status"
     ],
     "deny": [],
     "ask": []
